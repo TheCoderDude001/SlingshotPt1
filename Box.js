@@ -1,43 +1,37 @@
-class Box{
+class Box extends baseClass{
 
     constructor(x,y){
 
-        this.width = 20;
-        this.height = 40;
-        this.x = x;
-        this.y = y;
-        this.image = loadImage("image.png");
+        super(x,y,20,30)
+        this.Visiblity = 255
 
-        this.body = Bodies.rectangle(x,y,this.width,this.height);
-        World.add(world, this.body)
+
     }
 
 
     display(){
 
-        var angle = this.body.angle;
+        if(this.body.speed < 3){
+            super.display();
 
-        var pos = this.body.position
-/*
-            fill("red")
-            rectMode(CENTER)
-            rect(this.x, this.y, this.width, this.height);
-          
-
-        */
-
-       push();
-       translate(pos.x, pos.y);
-       rotate(angle);
-       angleMode(RADIANS);   
-       imageMode(CENTER);
-       image(this.image, 0, 0, this.width, this.height);
-       pop()
-
-
-
+        }else{
+        
+            var pos = this.body.position
+            World.remove(world, this.body);
+            push();
+            this.Visiblity = this.Visiblity - 5;
+            tint(0,this.Visiblity);
+            image(this.image, pos.x, pos.y, 20, 30);
+            pop();
+        }
 
     }
+
+    score(){
+        if (this.Visiblity < 0 && this.Visiblity > -1005){
+          score++;
+        }
+      }
 
 
 
